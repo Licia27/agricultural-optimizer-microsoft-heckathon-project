@@ -14,14 +14,14 @@
         <p>Enter your field parameters to predict crop yield</p>
         
         <div class="form-group">
-            <label for="region">Region</label>
-            <select id="region">
+            <label for="region-crop">Region</label>
+            <select id="region-crop">
                 <option value="">Select region</option>
                 <option value="north">North</option>
                 <option value="south">South</option>
                 <option value="east">East</option>
                 <option value="west">West</option>
-                <option value="central">Central</option>
+                
             </select>
         </div>
         
@@ -39,12 +39,22 @@
         </div>
         
         <div class="form-group">
-            <label for="fertilizer">Fertilizer Usage (kg/ha)</label>
+            <label for="fertilizer">Fertilizer Usage ?</label>
             <select id="fertilizer">
                 <option value="">Select fertilizer usage</option>
-                <option value="low">Low (0-50 kg/ha)</option>
-                <option value="medium">Medium (50-100 kg/ha)</option>
-                <option value="high">High (100+ kg/ha)</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+        
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="irrigation">Irrigation usage ?</label>
+            <select id="irrigation">
+                <option value="">Select Irrigation usage</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+        
             </select>
         </div>
         
@@ -93,6 +103,6 @@
         
     </div>
 
-<script src="script.js"></script>
+<script src="./script.js"></script>
 </body>
 </html>
