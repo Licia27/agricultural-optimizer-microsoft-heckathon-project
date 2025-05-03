@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Optimizer</title>
+</head>
+<body>
+    <h1>Agricultural Optimizer</h1>
+    
+    <div class="forms-container">
+        
+        <div class="form-container">
+            <h2>Crop Recommendation</h2>
+            <p>Enter soil parameters to get crop recommendations</p>
+            
+            <div class="form-group">
+                <label for="nitrogen">Nitrogen Content (kg/ha)</label>
+                <input type="number" id="nitrogen" placeholder="Enter nitrogen content">
+            </div>
+            
+            <div class="form-group">
+                <label for="potassium">Potassium Content (kg/ha)</label>
+                <input type="number" id="potassium" placeholder="Enter potassium content">
+            </div>
+            
+            <div class="form-group">
+                <label for="phosphorus">Phosphorus Content (kg/ha)</label>
+                <input type="number" id="phosphorus" placeholder="Enter phosphorus content">
+            </div>
+            
+            <div class="form-group">
+                <label for="ph">pH Value</label>
+                <input type="number" id="ph" step="0.1" min="0" max="14" placeholder="Enter pH value">
+            </div>
+            
+            <button onclick="getCropRecommendations()">Get Recommendations</button>
+            
+            <div id="crop-result" class="result"></div>
+        </div>
+        
+        
+        <div class="form-container">
+            <h2>Yield Prediction</h2>
+            <p>Enter your field parameters to predict crop yield</p>
+            
+            <div class="form-group">
+                <label for="region">Region</label>
+                <select id="region">
+                    <option value="">Select region</option>
+                    <option value="north">North</option>
+                    <option value="south">South</option>
+                    <option value="east">East</option>
+                    <option value="west">West</option>
+                    <option value="central">Central</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="soil-type">Soil Type</label>
+                <select id="soil-type">
+                    <option value="">Select soil type</option>
+                    <option value="clay">Clay</option>
+                    <option value="sandy">Sandy</option>
+                    <option value="loamy">Loamy</option>
+                    <option value="silty">Silty</option>
+                    <option value="peaty">Peaty</option>
+                    <option value="chalky">Chalky</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="fertilizer">Fertilizer Usage (kg/ha)</label>
+                <select id="fertilizer">
+                    <option value="">Select fertilizer usage</option>
+                    <option value="low">Low (0-50 kg/ha)</option>
+                    <option value="medium">Medium (50-100 kg/ha)</option>
+                    <option value="high">High (100+ kg/ha)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="days-to-harvest">Days to Harvest</label>
+                <input type="number" id="days-to-harvest" placeholder="Enter days to harvest">
+            </div>
+            
+            <button onclick="predictYield()">Project Yield</button>
+            
+            <div id="yield-result" class="result"></div>
+        </div>
+    </div>
+</body>
+</html>
