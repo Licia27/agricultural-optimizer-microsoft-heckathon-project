@@ -9,66 +9,62 @@
 <body>
     <h1>Agricultural Optimizer</h1>
 
-    <div class="form-container">
-        <h2>Yield Prediction</h2>
-        <p>Enter your field parameters to predict crop yield</p>
-        
-        <div class="form-group">
-            <label for="region-crop">Region</label>
-            <select id="region-crop">
-                <option value="">Select region</option>
-                <option value="north">North</option>
-                <option value="south">South</option>
-                <option value="east">East</option>
-                <option value="west">West</option>
-                
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="soil-type">Soil Type <span class="required">*</span></label>
-            <select id="soil-type">
-                <option value="">Select soil type</option>
-                <option value="clay">Clay</option>
-                <option value="sandy">Sandy</option>
-                <option value="loamy">Loamy</option>
-                <option value="silty">Silty</option>
-                <option value="peaty">Peaty</option>
-                <option value="chalky">Chalky</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="fertilizer">Fertilizer Usage ?</label>
-            <select id="fertilizer">
-                <option value="">Select fertilizer usage</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-        
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="irrigation">Irrigation usage ?</label>
-            <select id="irrigation">
-                <option value="">Select Irrigation usage</option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-        
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="days-to-harvest">Days to Harvest <span class="required">*</span></label>
-            <input type="number" id="days-to-harvest" placeholder="Enter days to harvest">
-        </div>
-        
-        <button onclick="predictYield()">Project Yield</button>
-        
-        <div id="yield-result" class="result"></div>
-    </div>
-    
     <div class="forms-container">
+        <div class="form-container">
+            <h2>Yield Prediction</h2>
+            <p>Enter your field parameters to predict crop yield</p>
+            
+            <div class="form-group">
+                <label for="region-crop">Region</label>
+                <select id="region-crop">
+                    <option value="">Select region</option>
+                    <option value="north">North</option>
+                    <option value="south">South</option>
+                    <option value="east">East</option>
+                    <option value="west">West</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="soil-type">Soil Type <span class="required">*</span></label>
+                <select id="soil-type" required>
+                    <option value="">Select soil type</option>
+                    <option value="clay">Clay</option>
+                    <option value="sandy">Sandy</option>
+                    <option value="loamy">Loamy</option>
+                    <option value="silty">Silty</option>
+                    <option value="peaty">Peaty</option>
+                    <option value="chalky">Chalky</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="fertilizer">Fertilizer Usage ?</label>
+                <select id="fertilizer">
+                    <option value="">Select fertilizer usage</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="irrigation">Irrigation usage ?</label>
+                <select id="irrigation">
+                    <option value="">Select Irrigation usage</option>
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="days-to-harvest">Days to Harvest <span class="required">*</span></label>
+                <input type="number" id="days-to-harvest" placeholder="Enter days to harvest" required>
+            </div>
+            
+            <button id="predictYieldBtn">Project Yield</button>
+            
+            <div id="yield-result" class="result"></div>
+        </div>
         
         <div class="form-container">
             <h2>Crop Recommendation</h2>
@@ -76,33 +72,209 @@
             
             <div class="form-group">
                 <label for="nitrogen">Nitrogen Content (kg/ha) <span class="required">*</span></label>
-                <input type="number" id="nitrogen" placeholder="Enter nitrogen content">
+                <input type="number" id="nitrogen" placeholder="Enter nitrogen content" required>
             </div>
             
             <div class="form-group">
                 <label for="potassium">Potassium Content (kg/ha) <span class="required">*</span></label>
-                <input type="number" id="potassium" placeholder="Enter potassium content">
+                <input type="number" id="potassium" placeholder="Enter potassium content" required>
             </div>
             
             <div class="form-group">
                 <label for="phosphorus">Phosphorus Content (kg/ha) <span class="required">*</span></label>
-                <input type="number" id="phosphorus" placeholder="Enter phosphorus content">
+                <input type="number" id="phosphorus" placeholder="Enter phosphorus content" required>
             </div>
             
             <div class="form-group">
                 <label for="ph">pH Value <span class="required">*</span></label>
-                <input type="number" id="ph" step="0.1" min="0" max="14" placeholder="Enter pH value">
+                <input type="number" id="ph" step="0.1" min="0" max="14" placeholder="Enter pH value" required>
             </div>
             
-            <button onclick="getCropRecommendations()">Get Recommendations</button>
+            <button id="getRecommendationsBtn">Get Recommendations</button>
             
             <div id="crop-result" class="result"></div>
         </div>
-        
-        
-        
-    </div>
+    </div>
 
-<script src="./script.js"></script>
+    <script>
+        // Hard-coded crop database
+        const CROP_DATABASE = [
+            { name: "Maize", idealPH: [5.5, 7.0], nitrogenReq: "high", waterReq: "medium" },
+            { name: "Potatoes", idealPH: [4.5, 6.0], nitrogenReq: "medium", waterReq: "high" },
+            { name: "Rice", idealPH: [5.0, 6.5], nitrogenReq: "high", waterReq: "very high" },
+            { name: "Wheat", idealPH: [6.0, 7.5], nitrogenReq: "medium", waterReq: "low" },
+            { name: "Sorghum", idealPH: [5.5, 7.5], nitrogenReq: "low", waterReq: "low" },
+            { name: "Soybeans", idealPH: [6.0, 7.0], nitrogenReq: "low", waterReq: "medium" }
+        ];
+
+        function predictYield() {
+            const region = document.getElementById("region-crop").value;
+            const soilType = document.getElementById("soil-type").value;
+            const fertilizer = document.getElementById("fertilizer").value;
+            const irrigation = document.getElementById("irrigation").value;
+            const daysToHarvest = document.getElementById("days-to-harvest").value;
+            const resultDiv = document.getElementById("yield-result");
+            
+            // Validate required fields
+            if (!soilType || !daysToHarvest) {
+                showError(resultDiv, "Please fill all required fields (marked with *)");
+                return;
+            }
+
+            // Base yield calculation
+            let baseYield = 2.5; // tons/ha
+            
+            // Region modifiers
+            const regionModifiers = {
+                north: 1.1, south: 0.9, east: 1.0, west: 0.95
+            };
+            
+            // Soil type modifiers
+            const soilModifiers = {
+                clay: 0.8, sandy: 0.7, loamy: 1.3, silty: 1.1, peaty: 1.0, chalky: 0.9
+            };
+            
+            // Calculate yield
+            if (region && regionModifiers[region]) {
+                baseYield *= regionModifiers[region];
+            }
+            
+            if (soilType && soilModifiers[soilType]) {
+                baseYield *= soilModifiers[soilType];
+            }
+            
+            if (fertilizer === "yes") baseYield *= 1.2;
+            if (irrigation === "yes") baseYield *= 1.15;
+            
+            // Days to harvest impact (longer = higher yield)
+            const daysImpact = Math.min(1 + (daysToHarvest / 200), 1.5);
+            baseYield *= daysImpact;
+            
+            // Display results
+            const predictedYield = baseYield.toFixed(2);
+            const resultHTML = `
+                <h3>Yield Prediction: ${predictedYield} tons/ha</h3>
+                <div class="yield-details">
+                    <p><strong>Factors considered:</strong></p>
+                    <ul>
+                        <li>Region: ${region || "Not specified"}</li>
+                        <li>Soil Type: ${soilType}</li>
+                        <li>Fertilizer: ${fertilizer || "Not specified"}</li>
+                        <li>Irrigation: ${irrigation || "Not specified"}</li>
+                        <li>Growing Period: ${daysToHarvest} days</li>
+                    </ul>
+                </div>
+                <div class="optimization-tips">
+                    <p><strong>Tips to improve yield:</strong></p>
+                    <ul>
+                        ${fertilizer === "no" ? "<li>Using fertilizer could increase yield by 20%</li>" : ""}
+                        ${irrigation === "no" ? "<li>Adding irrigation could boost yield by 15%</li>" : ""}
+                        ${soilType === "clay" ? "<li>Consider adding organic matter to clay soil</li>" : ""}
+                    </ul>
+                </div>
+            `;
+            
+            showResults(resultDiv, resultHTML);
+        }
+
+        function getCropRecommendations() {
+            const nitrogen = parseFloat(document.getElementById("nitrogen").value);
+            const potassium = parseFloat(document.getElementById("potassium").value);
+            const phosphorus = parseFloat(document.getElementById("phosphorus").value);
+            const ph = parseFloat(document.getElementById("ph").value);
+            const resultDiv = document.getElementById("crop-result");
+            
+            // Validate inputs
+            if (isNaN(nitrogen) || isNaN(potassium) || isNaN(phosphorus) || isNaN(ph)) {
+                showError(resultDiv, "Please enter valid numbers in all fields");
+                return;
+            }
+            
+            if (ph < 0 || ph > 14) {
+                showError(resultDiv, "pH must be between 0 and 14");
+                return;
+            }
+
+            // Score crops based on suitability
+            const scoredCrops = CROP_DATABASE.map(crop => {
+                let score = 0;
+                
+                // pH match (50% of score)
+                if (ph >= crop.idealPH[0] && ph <= crop.idealPH[1]) {
+                    score += 50;
+                } else {
+                    // Penalize based on distance from ideal pH
+                    const distance = Math.min(
+                        Math.abs(ph - crop.idealPH[0]), 
+                        Math.abs(ph - crop.idealPH[1])
+                    );
+                    score += Math.max(0, 50 - (distance * 10));
+                }
+                
+                // Nitrogen match (30% of score)
+                if ((crop.nitrogenReq === "high" && nitrogen > 50) ||
+                    (crop.nitrogenReq === "medium" && nitrogen > 20) ||
+                    (crop.nitrogenReq === "low" && nitrogen <= 50)) {
+                    score += 30;
+                }
+                
+                // Phosphorus/Potassium (20% of score)
+                if (phosphorus > 30 && potassium > 100) score += 20;
+                else if (phosphorus > 15 && potassium > 50) score += 10;
+                
+                return { ...crop, score };
+            }).sort((a, b) => b.score - a.score).slice(0, 3); // Top 3 crops
+
+            // Display results
+            const resultHTML = `
+                <h3>Recommended Crops</h3>
+                <div class="crop-grid">
+                    ${scoredCrops.map(crop => `
+                        <div class="crop-card">
+                            <h4>${crop.name}</h4>
+                            <p class="match-score">Suitability: ${crop.score}%</p>
+                            <p>Ideal pH: ${crop.idealPH[0]} - ${crop.idealPH[1]}</p>
+                            <p>Nitrogen: ${crop.nitrogenReq} required</p>
+                            <p>Water: ${crop.waterReq} needs</p>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="soil-summary">
+                    <h4>Your Soil Analysis</h4>
+                    <p>Nitrogen: ${nitrogen} kg/ha</p>
+                    <p>Phosphorus: ${phosphorus} kg/ha</p>
+                    <p>Potassium: ${potassium} kg/ha</p>
+                    <p>pH: ${ph}</p>
+                </div>
+            `;
+            
+            showResults(resultDiv, resultHTML);
+        }
+
+        // Helper functions
+        function showResults(element, content) {
+            element.innerHTML = content;
+            element.style.display = "block";
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showError(element, message) {
+            element.innerHTML = <div class="error">${message}</div>;
+            element.style.display = "block";
+        }
+
+        // Initialize event listeners when DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('predictYieldBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                predictYield();
+            });
+            
+            document.getElementById('getRecommendationsBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                getCropRecommendations();
+            });
+        });
+    </script>
 </body>
 </html>
